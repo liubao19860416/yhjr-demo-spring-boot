@@ -8,8 +8,8 @@ import com.yhjr.demo.domain.TestEntity;
  * Service层测试接口定义
  * 
  * @author LiuBao
- * @version 2.0 2017年3月27日
- * 
+ * @version 2.0 
+ * 2017年3月27日
  */
 public interface TestEntityService {
 	

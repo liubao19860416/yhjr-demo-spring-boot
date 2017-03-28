@@ -17,8 +17,8 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
  * WebMVC配置定义信息加载
  * 
  * @author LiuBao
- * @version 2.0 2017年3月27日
- * 
+ * @version 2.0 
+ * 2017年3月27日
  */
 @Configuration
 public class WebConfiguration extends WebMvcConfigurationSupport {
@@ -33,7 +33,7 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
 		supportedMediaTypes.add(MediaType.APPLICATION_XHTML_XML);
 		supportedMediaTypes.add(MediaType.MULTIPART_FORM_DATA);
 		supportedMediaTypes.add(MediaType.APPLICATION_JSON);
-		//jsonConverter.setSupportedMediaTypes(supportedMediaTypes);
+		jsonConverter.setSupportedMediaTypes(supportedMediaTypes);
 		return jsonConverter;
 	}
 

@@ -14,8 +14,8 @@ import com.yhjr.demo.service.TestEntityService;
  * Service层测试接口实现
  * 
  * @author LiuBao
- * @version 2.0 2017年3月27日
- * 
+ * @version 2.0 
+ * 2017年3月27日
  */
 @Component
 public class TestEntityServiceImpl implements TestEntityService {

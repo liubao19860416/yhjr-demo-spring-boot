@@ -8,10 +8,12 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,8 +26,8 @@ import com.yhjr.demo.vo.TestResultVO;
  * 测试Controller层接口定义
  * 
  * @author LiuBao
- * @version 2.0 2017年3月27日
- * 
+ * @version 2.0 
+ * 2017年3月27日
  */
 @Controller
 @RequestMapping("/test")
@@ -45,7 +47,7 @@ public class TestEntityController {
 		model.addAttribute("username", "LiuBao");
 		return "/test/listTestEntitys";
 	}
-
+	
 	/**
 	 * 数据列表查询测试
 	 */
@@ -62,7 +64,7 @@ public class TestEntityController {
 	 * 数据列表查询测试
 	 */
 	@ResponseBody
-	@RequestMapping("/ajax/addTestEntity")
+	@RequestMapping(value ="/ajax/addTestEntity" ,method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Object addTestEntity(@RequestBody TestParam testParam) {
 		LOGGER.debug("testParam:{}", testParam);
 		TestEntity testEntity=new TestEntity();

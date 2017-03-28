@@ -6,8 +6,8 @@ import java.io.Serializable;
  * 测试VO实体类
  * 
  * @author LiuBao
- * @version 2.0 2017年3月27日
- * 
+ * @version 2.0 
+ * 2017年3月27日
  */
 public class TestResultVO implements Serializable {
 	private static final long serialVersionUID = -2451145299328946340L;

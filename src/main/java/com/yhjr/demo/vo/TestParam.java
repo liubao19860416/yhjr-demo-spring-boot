@@ -6,8 +6,8 @@ import java.io.Serializable;
  * 测试请求参数实体
  * 
  * @author LiuBao
- * @version 2.0 2017年3月27日
- * 
+ * @version 2.0 
+ * 2017年3月27日
  */
 public class TestParam implements Serializable {
 	private static final long serialVersionUID = 4127004632562874805L;

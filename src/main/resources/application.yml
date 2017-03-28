@@ -26,6 +26,9 @@ spring:
 name: Dev
 
 ---
+
+# --spring.profiles.active=dev
+
 spring:
-    profiles: prod
-name: Prod
+    profiles: prd
+name: Prd

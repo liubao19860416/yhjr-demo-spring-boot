@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * SpringBoot启动类
  * 
  * @author LiuBao
- * @version 2.0 2017年3月27日
+ * @version 2.0 
+ * 2017年3月27日
  *
  */
 @SpringBootApplication
@@ -33,4 +34,5 @@ public class DemoApplication implements CommandLineRunner {
 		log.info("Joining thread, you can press Ctrl+C to shutdown application");
 		Thread.currentThread().join();
 	}
+	
 }

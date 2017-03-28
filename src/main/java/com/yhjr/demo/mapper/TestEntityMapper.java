@@ -8,8 +8,8 @@ import com.yhjr.demo.domain.TestEntity;
  * 测试实体对应的Mapper
  * 
  * @author LiuBao
- * @version 2.0 2017年3月27日
- * 
+ * @version 2.0 
+ * 2017年3月27日
  */
 public interface TestEntityMapper {
 
