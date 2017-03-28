@@ -2,6 +2,8 @@ package com.yhjr.demo.domain;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
 /**
  * 测试实体
  * 
@@ -9,6 +11,7 @@ import java.util.Date;
  * @version 2.0 2017年3月27日
  * 
  */
+@Alias("testEntity")
 public class TestEntity {
 	private Long id;
 	private String userName;

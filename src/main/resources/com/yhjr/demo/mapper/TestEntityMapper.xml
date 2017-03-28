@@ -5,5 +5,15 @@
     <select id="findAllTestEntitys" resultType="com.yhjr.demo.domain.TestEntity">
         select * from t_test_entity
     </select>
+
+    <insert id="insertTestEntity" parameterType="com.yhjr.demo.domain.TestEntity"  useGeneratedKeys="true" keyProperty="id">
+	    insert into t_test_entity (
+	    	id,user_name, password, type,  del_flag<!-- , create_datetime -->
+	      )
+	    values (
+		  #{id,jdbcType=BIGINT},#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+	      #{type,jdbcType=INTEGER}, #{delFlag,jdbcType=BIT}<!-- ,  #{createDatetime,jdbcType=TIMESTAMP} -->
+	      )
+	  </insert>
     
 </mapper>

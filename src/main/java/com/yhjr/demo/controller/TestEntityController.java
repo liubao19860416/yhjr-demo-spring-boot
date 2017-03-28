@@ -1,6 +1,9 @@
 package com.yhjr.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +57,29 @@ public class TestEntityController {
 		List<TestEntity> testEntitys = testEntityService.findAllTestEntitys();
 		return testEntitys;
 	}
+	
+	/**
+	 * 数据列表查询测试
+	 */
+	@ResponseBody
+	@RequestMapping("/ajax/addTestEntity")
+	public Object addTestEntity(@RequestBody TestParam testParam) {
+		LOGGER.debug("testParam:{}", testParam);
+		TestEntity testEntity=new TestEntity();
+		testEntity.setUserName("username"+testParam.getUserId());
+		testEntity.setPassword(UUID.randomUUID().toString());
+		testEntity.setType("1");
+		boolean result = testEntityService.addTestEntity(testEntity);
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		if(result){
+			resultMap.put("code", 0);
+			resultMap.put("data", testEntity);
+		}else{
+			resultMap.put("code", -1);
+			resultMap.put("data", result);
+		}
+		return resultMap;
+	}
 
 	/**
 	 * 数据实体查询测试
@@ -66,6 +92,7 @@ public class TestEntityController {
 		testResultVO.setUserName(testParam.getUserId());
 		testResultVO.setPassword(testParam.getPassword());
 		testResultVO.setAge(30);
+		testResultVO.setTestParam(testParam);
 		return testResultVO;
 	}
 

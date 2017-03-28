@@ -17,5 +17,10 @@ public interface TestEntityMapper {
 	 * 列表数据查询测试接口
 	 */
 	List<TestEntity> findAllTestEntitys();
+
+	/**
+	 * 添加实体信息接口
+	 */
+	int insertTestEntity(TestEntity testEntity);
 	
 }

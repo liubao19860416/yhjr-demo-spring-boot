@@ -17,5 +17,10 @@ public interface TestEntityService {
 	 * 列表查询接口定义
 	 */
 	List<TestEntity> findAllTestEntitys();
+
+	/**
+	 * 添加实体信息接口定义
+	 */
+	boolean addTestEntity(TestEntity testEntity);
 	
 }

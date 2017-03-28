@@ -28,9 +28,11 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
 		FastJsonHttpMessageConverter jsonConverter = new FastJsonHttpMessageConverter();
 		jsonConverter.setCharset(Charset.forName("UTF-8"));
 		jsonConverter.setFeatures(SerializerFeature.WriteDateUseDateFormat);
-		//List<MediaType> supportedMediaTypes=new ArrayList<MediaType>();
-		//supportedMediaTypes.add(MediaType.APPLICATION_FORM_URLENCODED);
-		//supportedMediaTypes.add(MediaType.APPLICATION_JSON);
+		List<MediaType> supportedMediaTypes=new ArrayList<MediaType>();
+		supportedMediaTypes.add(MediaType.APPLICATION_FORM_URLENCODED);
+		supportedMediaTypes.add(MediaType.APPLICATION_XHTML_XML);
+		supportedMediaTypes.add(MediaType.MULTIPART_FORM_DATA);
+		supportedMediaTypes.add(MediaType.APPLICATION_JSON);
 		//jsonConverter.setSupportedMediaTypes(supportedMediaTypes);
 		return jsonConverter;
 	}

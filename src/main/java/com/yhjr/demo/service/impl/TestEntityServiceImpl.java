@@ -30,4 +30,13 @@ public class TestEntityServiceImpl implements TestEntityService {
 	public List<TestEntity> findAllTestEntitys() {
 		return testEntityMapper.findAllTestEntitys();
 	}
+
+	/**
+	 * 添加实体信息接口实现
+	 */
+	@Override
+	public boolean addTestEntity(TestEntity testEntity) {
+		int result=testEntityMapper.insertTestEntity(testEntity);
+		return result==1;
+	}
 }
