@@ -39,6 +39,7 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	@Override
 	public void run(String... strings) throws Exception {
 		log.info("Name is :: : {}", name);
 		log.info("Joining thread, you can press Ctrl+C to shutdown application");
