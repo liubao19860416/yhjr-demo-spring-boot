@@ -45,6 +45,7 @@ public class TestEntityController {
 		List<TestEntity> testEntitys = testEntityService.findAllTestEntitys();
 		model.addAttribute("testEntitys", testEntitys);
 		model.addAttribute("username", "LiuBao");
+		//int i=1/0;
 		return "/test/listTestEntitys";
 	}
 	
@@ -97,5 +98,5 @@ public class TestEntityController {
 		testResultVO.setTestParam(testParam);
 		return testResultVO;
 	}
-
+	
 }
