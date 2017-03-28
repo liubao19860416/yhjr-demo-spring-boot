@@ -1,8 +1,5 @@
 package com.yhjr.demo.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.entity.ContentType;
@@ -11,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.yhjr.demo.vo.ResultVO;
 
 /**
  * 异常跳转页面定义
@@ -41,20 +40,11 @@ public class MyGlobalController implements ErrorController {
 		return ERROR_PATH+"error";
 	}
 	
-//	@RequestMapping(value = ERROR_400)
-//	public String handleError400() {
-//		return ERROR_PATH+HttpStatus.BAD_REQUEST.toString();
-//	}
-	
 	@ResponseBody
 	@RequestMapping(value = ERROR_400)
 	public Object handleError400(HttpServletResponse response) {
 		response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
-		Map<String, Object> resultMap=new HashMap<String,Object>();
-		resultMap.put("code", "400");
-		resultMap.put("msg", "400异常全局处理结果");
-		resultMap.put("data", new HashMap<>());
-		return resultMap;
+		return new ResultVO("400",  "400全局异常!");
 	}
 	
 	@RequestMapping(value = ERROR_401)
@@ -74,7 +64,7 @@ public class MyGlobalController implements ErrorController {
 	
 	@RequestMapping(value = ERROR_500)
 	public String handleError500() {
-		return "error/"+HttpStatus.INTERNAL_SERVER_ERROR.toString();
+		return ERROR_PATH+HttpStatus.INTERNAL_SERVER_ERROR.toString();
 	}
 
 	@Override

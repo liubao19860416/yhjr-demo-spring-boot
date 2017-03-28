@@ -1,8 +1,6 @@
 package com.yhjr.demo.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yhjr.demo.domain.TestEntity;
 import com.yhjr.demo.service.TestEntityService;
+import com.yhjr.demo.vo.ResultVO;
 import com.yhjr.demo.vo.TestParam;
 import com.yhjr.demo.vo.TestResultVO;
 
@@ -58,7 +57,9 @@ public class TestEntityController {
 			@RequestParam("password") String password) {
 		LOGGER.debug("username:{}, password:{}", username, password);
 		List<TestEntity> testEntitys = testEntityService.findAllTestEntitys();
-		return testEntitys;
+		ResultVO resultVO=new ResultVO();
+		resultVO.setData(testEntitys);
+		return resultVO;
 	}
 	
 	/**
@@ -73,15 +74,14 @@ public class TestEntityController {
 		testEntity.setPassword(UUID.randomUUID().toString());
 		testEntity.setType("1");
 		boolean result = testEntityService.addTestEntity(testEntity);
-		Map<String,Object> resultMap=new HashMap<String,Object>();
+		ResultVO resultVO=new ResultVO();
 		if(result){
-			resultMap.put("code", 0);
-			resultMap.put("data", testEntity);
+			resultVO.setData(testEntity);
 		}else{
-			resultMap.put("code", -1);
-			resultMap.put("data", result);
+			resultVO.setData(result);
+			resultVO.setCode(ResultVO.FAILURE);
 		}
-		return resultMap;
+		return resultVO;
 	}
 
 	/**
@@ -96,7 +96,10 @@ public class TestEntityController {
 		testResultVO.setPassword(testParam.getPassword());
 		testResultVO.setAge(30);
 		testResultVO.setTestParam(testParam);
-		return testResultVO;
+		
+		ResultVO resultVO=new ResultVO();
+		resultVO.setData(testResultVO);
+		return resultVO;
 	}
 	
 }

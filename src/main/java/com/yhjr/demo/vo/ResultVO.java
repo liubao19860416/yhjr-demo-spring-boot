@@ -1,8 +1,5 @@
 package com.yhjr.demo.vo;
 
-/**
- * Created by Administrator on 2017/3/28 0028.
- */
 public class ResultVO {
     public static final String SUCCESS = "0";
     public static final String FAILURE = "1";
@@ -12,6 +9,7 @@ public class ResultVO {
     private Object data;
 
     public ResultVO() {
+    	this.code = SUCCESS;
     }
 
     public ResultVO(String code, String message) {
