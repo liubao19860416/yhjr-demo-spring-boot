@@ -30,6 +30,7 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 	private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
 
 	// @Value("${name}")
+	@Value("${profile.name:Dev}")
 	private String name;
 	
 	@Value("${server.port}")
@@ -42,7 +43,7 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 	@Override
 	public void run(String... strings) throws Exception {
 		log.info("Name is :: : {}", name);
-		log.info("Joining thread, you can press Ctrl+C to shutdown application");
+		log.info("DemoApplication finished start...");
 		Thread.currentThread().join();
 	}
 
@@ -71,6 +72,7 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 	            ErrorPage error405Page = new ErrorPage(HttpStatus.METHOD_NOT_ALLOWED, MyGlobalController.ERROR_405);
 	            ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, MyGlobalController.ERROR_500);
 	            container.addErrorPages(error400Page,error401Page, error404Page,error405Page, error500Page);
+	            log.info("设置异常错误处理信息结束...");
 	        }
 	    };
 	}

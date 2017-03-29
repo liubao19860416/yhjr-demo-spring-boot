@@ -1,8 +1,11 @@
 package com.yhjr.demo.test;
 
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.yhjr.demo.vo.TestParam;
-import com.yhjr.demo.vo.TestResultVO;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
@@ -15,17 +18,14 @@ import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.yhjr.demo.vo.ResultInfo;
 
 /**
  * 基础测试类
@@ -40,21 +40,22 @@ public class BaseRestServiceTests {
 
     protected RestTemplate restTemplate;
 
-    protected String baseUrl = "http://localhost:8080";
-    protected String requestUrl = baseUrl + "/test";
-    protected String apiKey;
-    protected String authString;
+    protected String baseUrl = "http://localhost:8088/test";
+    protected Map<String,Object> requestParam=new HashMap<>();
+    protected String requestUrl ;
+    protected String code;
+    protected String message;
 
     @Before
     public void initRestTemplate() {
         HttpClient client = HttpClientBuilder.create().addInterceptorFirst(new HttpRequestInterceptor() {
             @Override
             public void process(HttpRequest httpRequest, HttpContext httpContext) throws HttpException, IOException {
-                if (apiKey != null) {
-                    httpRequest.addHeader("X-ApiKey", apiKey);
+                if (code != null) {
+                    httpRequest.addHeader("X-ApiKey", code);
                 }
-                if (authString != null) {
-                    httpRequest.addHeader("X-AuthString", authString);
+                if (message != null) {
+                    httpRequest.addHeader("X-AuthString", message);
                 }
                 httpRequest.setHeader("Content-Type", "application/json");
                 //httpRequest.setHeader("Content-Type", MediaType.APPLICATION_JSON.toString());
@@ -70,34 +71,27 @@ public class BaseRestServiceTests {
         restTemplate.setMessageConverters(converters);
         
         //调用测试
-        postHttpRequest(getUserId(), getPassword());
+        //postHttpRequest();
     }
 
-    public RestTemplate getRestTemplate() {
+    public RestTemplate getRestTemplate(String requestUrl,Map<String,Object> requestParam) {
+    	this.requestUrl=requestUrl;
+    	this.requestParam=requestParam;
         return restTemplate;
     }
-
-    public String getUserId() {
-        return "1000";
+    
+    public RestTemplate getRestTemplate(String requestUrl) {
+    	this.requestUrl=requestUrl;
+    	return restTemplate;
     }
 
-    public String getPassword() {
-        return "123456";
-    }
-    public Long getAge() {
-    	return 30L;
-    }
-
-    protected void postHttpRequest(String userId, String password) {
-    	TestParam param = new TestParam();
-        param.setPassword(password);
-        param.setUserId(userId);
-
-        ResponseEntity<TestResultVO> result = restTemplate.postForEntity(requestUrl, param, TestResultVO.class);
+    @SuppressWarnings("rawtypes")
+	protected void postHttpRequest() {
+        ResponseEntity<ResultInfo> result = restTemplate.postForEntity(baseUrl+requestUrl, requestParam, ResultInfo.class);
         Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
-        apiKey = result.getBody().getPassword();
-        authString = result.getBody().getUserName() + "-" + System.currentTimeMillis();
+        code = result.getBody().getCode();
+        message = result.getBody().getMessage() + "-" + System.currentTimeMillis();
 
-        LOGGER.debug("authenticated with apikey : {}, authString : {}", apiKey, authString);
+        LOGGER.debug("authenticated with apikey : {}, authString : {}", code, message);
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yhjr.demo.domain.TestEntity;
@@ -26,7 +27,8 @@ public class TestEntityServiceImpl implements TestEntityService {
 	/**
 	 * 列表查询测试接口实现
 	 */
-	@Transactional(readOnly = true)
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly = true)
 	public List<TestEntity> findAllTestEntitys() {
 		return testEntityMapper.findAllTestEntitys();
 	}
@@ -35,6 +37,7 @@ public class TestEntityServiceImpl implements TestEntityService {
 	 * 添加实体信息接口实现
 	 */
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class,readOnly = false)
 	public boolean addTestEntity(TestEntity testEntity) {
 		int result=testEntityMapper.insertTestEntity(testEntity);
 		return result==1;

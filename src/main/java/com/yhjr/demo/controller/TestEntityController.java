@@ -3,6 +3,9 @@ package com.yhjr.demo.controller;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yhjr.demo.domain.TestEntity;
+import com.yhjr.demo.exception.ErrorCodeConstant;
 import com.yhjr.demo.service.TestEntityService;
-import com.yhjr.demo.vo.ResultVO;
+import com.yhjr.demo.utils.MessageSourceUtil;
+import com.yhjr.demo.vo.ResultInfo;
 import com.yhjr.demo.vo.TestParam;
-import com.yhjr.demo.vo.TestResultVO;
 
 /**
  * 测试Controller层接口定义
@@ -35,16 +39,20 @@ public class TestEntityController {
 
 	@Autowired
 	private TestEntityService testEntityService;
-
+	
+	@Autowired
+	private MessageSourceUtil messageSourceUtil;
+	
 	/**
 	 * 页面跳转测试
 	 */
 	@RequestMapping("/ui/listTestEntitys")
 	public String listTestEntitys(Model model) {
+		//int i=1/0;
 		List<TestEntity> testEntitys = testEntityService.findAllTestEntitys();
 		model.addAttribute("testEntitys", testEntitys);
 		model.addAttribute("username", "LiuBao");
-		//int i=1/0;
+		model.addAttribute("message", messageSourceUtil.getMessage(ErrorCodeConstant.ERROR_CODE_DEFAULT));
 		return "/test/listTestEntitys";
 	}
 	
@@ -52,14 +60,13 @@ public class TestEntityController {
 	 * 数据列表查询测试
 	 */
 	@ResponseBody
-	@RequestMapping("/ajax/listTestEntitys")
-	public Object listTestEntitys(@RequestParam("username") String username,
-			@RequestParam("password") String password) {
+	@RequestMapping(value = "/ajax/listTestEntitys")
+	public Object listTestEntitys(@RequestParam("username") String username, @RequestParam("password") String password,
+			HttpServletResponse response) {
+		response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
 		LOGGER.debug("username:{}, password:{}", username, password);
 		List<TestEntity> testEntitys = testEntityService.findAllTestEntitys();
-		ResultVO resultVO=new ResultVO();
-		resultVO.setData(testEntitys);
-		return resultVO;
+		return new ResultInfo<List<TestEntity>>().buildSuccess(testEntitys);
 	}
 	
 	/**
@@ -74,32 +81,25 @@ public class TestEntityController {
 		testEntity.setPassword(UUID.randomUUID().toString());
 		testEntity.setType("1");
 		boolean result = testEntityService.addTestEntity(testEntity);
-		ResultVO resultVO=new ResultVO();
 		if(result){
-			resultVO.setData(testEntity);
+			return new ResultInfo<TestEntity>().buildSuccess(testEntity);
 		}else{
-			resultVO.setData(result);
-			resultVO.setCode(ResultVO.FAILURE);
+			ResultInfo<Boolean> resultInfo = new ResultInfo<Boolean>()
+					.buildFailure(ErrorCodeConstant.ERROR_CODE_DEFAULT,
+							messageSourceUtil.getMessage(ErrorCodeConstant.ERROR_CODE_DEFAULT));
+			resultInfo.setData(result);
+			return resultInfo;
 		}
-		return resultVO;
 	}
 
 	/**
 	 * 数据实体查询测试
 	 */
 	@ResponseBody 
-	@RequestMapping("/ajax/listTestResultVO")
+	@RequestMapping(value="/ajax/listTestResultVO",method={RequestMethod.POST})
 	public Object listTestResultVO(@RequestBody TestParam testParam) {
 		LOGGER.debug("testParam:{}", testParam);
-		TestResultVO testResultVO = new TestResultVO();
-		testResultVO.setUserName(testParam.getUserId());
-		testResultVO.setPassword(testParam.getPassword());
-		testResultVO.setAge(30);
-		testResultVO.setTestParam(testParam);
-		
-		ResultVO resultVO=new ResultVO();
-		resultVO.setData(testResultVO);
-		return resultVO;
+		return new ResultInfo<TestParam>().buildSuccess(testParam);
 	}
 	
 }

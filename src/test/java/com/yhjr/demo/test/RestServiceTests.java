@@ -3,12 +3,13 @@ package com.yhjr.demo.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.yhjr.demo.vo.TestResultVO;
+import com.yhjr.demo.vo.ResultInfo;
 
 /**
  * Rest服务接口测试类
@@ -20,16 +21,19 @@ import com.yhjr.demo.vo.TestResultVO;
  */
 public class RestServiceTests extends BaseRestServiceTests {
 	
-    @Test
+    @SuppressWarnings("rawtypes")
+	@Test
     public void testListTestEntitys() {
-        RestTemplate rest = getRestTemplate();
-        ResponseEntity<TestResultVO> entity = rest.getForEntity(baseUrl + "/ajax/listTestEntitys?username={username}&password={password}", TestResultVO.class, "LiuBao", "123456");
+    	String requestUrl="";
+        RestTemplate restTemplate = getRestTemplate(requestUrl);
+        ResponseEntity<ResultInfo> entity = restTemplate.getForEntity(baseUrl + "/ajax/listTestEntitys?username={username}&password={password}", ResultInfo.class, "LiuBao", "123456");
         assertEquals(HttpStatus.OK, entity.getStatusCode());
-        TestResultVO testResultVO = entity.getBody();
-
-        assertNotNull(testResultVO);
-        assertNotNull(testResultVO.getAge());
-        assertNotNull("LiuBao", testResultVO.getUserName());
-        assertNotNull("123456", testResultVO.getPassword());
+        ResultInfo resultInfo = entity.getBody();
+        
+        assertNotNull(resultInfo);
+        assertNotNull(resultInfo.getData());
+        assertNotNull("0", resultInfo.getCode());
+        Assert.assertNull(resultInfo.getMessage());
     }
+    
 }

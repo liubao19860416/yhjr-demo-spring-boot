@@ -7,7 +7,8 @@
 <body>
 <table border=1px; >
     <tr>
-		<th colspan=6>当前登录用户信息: ${username} !!!</th>
+		<th colspan=6>当前登录用户信息: ${username} !!!
+		<hr/>测试MSG信息: ${message} </th>
     </tr>
     <tr>
         <th>ID</th>
