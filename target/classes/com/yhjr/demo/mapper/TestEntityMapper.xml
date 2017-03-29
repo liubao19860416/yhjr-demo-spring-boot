@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhjr.demo.mapper.TestEntityMapper">
+
+    <select id="findAllTestEntitys" resultType="com.yhjr.demo.domain.TestEntity">
+        select * from t_test_entity
+    </select>
+
+    <insert id="insertTestEntity" parameterType="com.yhjr.demo.domain.TestEntity"  useGeneratedKeys="true" keyProperty="id">
+	    insert into t_test_entity (
+	    	id,user_name, password, type,  del_flag<!-- , create_datetime -->
+	      )
+	    values (
+		  #{id,jdbcType=BIGINT},#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+	      #{type,jdbcType=INTEGER}, #{delFlag,jdbcType=BIT}<!-- ,  #{createDatetime,jdbcType=TIMESTAMP} -->
+	      )
+	  </insert>
+    
+</mapper>
