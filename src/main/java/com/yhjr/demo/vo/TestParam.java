@@ -2,6 +2,8 @@ package com.yhjr.demo.vo;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 测试请求参数实体
  * 
@@ -11,7 +13,9 @@ import java.io.Serializable;
  */
 public class TestParam implements Serializable {
 	private static final long serialVersionUID = 4127004632562874805L;
+	@NotBlank(message="userId is not allowed null")
 	private String userId;
+	@NotBlank(message="password is not allowed null")
 	private String password;
 
 	public String getUserId() {

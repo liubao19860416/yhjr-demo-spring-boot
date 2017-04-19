@@ -1,5 +1,8 @@
 package com.yhjr.demo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,11 +12,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.yhjr.demo.controller.MyGlobalController;
+import com.yhjr.demo.filter.BasicAuthorizeAttributeFilter;
 
 /**
  * SpringBoot启动类
@@ -30,7 +35,7 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 	private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
 
 	// @Value("${name}")
-	@Value("${profile.name:Dev}")
+	@Value("${spring.profiles:Dev-}")
 	private String name;
 	
 	@Value("${server.port}")
@@ -77,4 +82,17 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 	    };
 	}
 	
+    
+    @Bean  
+    public FilterRegistrationBean  filterRegistrationBean() {  
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();  
+        BasicAuthorizeAttributeFilter httpBasicFilter = new BasicAuthorizeAttributeFilter();  
+        registrationBean.setFilter(httpBasicFilter);  
+        List<String> urlPatterns = new ArrayList<String>();  
+        urlPatterns.add("/user/*");  
+        urlPatterns.add("/sys/*");  
+        registrationBean.setUrlPatterns(urlPatterns);  
+        return registrationBean;  
+    } 
+    
 }

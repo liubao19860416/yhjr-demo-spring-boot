@@ -3,6 +3,8 @@ package com.yhjr.demo.vo;
 import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +20,7 @@ import com.yhjr.demo.exception.ErrorCodeConstant;
 public class ResultInfo<T> implements Serializable{
 	private static final long serialVersionUID = 2858244548725271096L;
 	private String code;
-	private String message;
+	private String message=StringUtils.EMPTY;
 	private T data;
 
 	public ResultInfo() {
@@ -91,4 +93,10 @@ public class ResultInfo<T> implements Serializable{
 	public void setData(T data) {
 		this.data = data;
 	}
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
+    
 }

@@ -12,23 +12,14 @@ import org.apache.ibatis.type.Alias;
  * 2017年3月27日
  */
 @Alias("testEntity")
-public class TestEntity {
-	private Long id;
+public class TestEntity extends BaseEntity {
+    private static final long serialVersionUID = -2339055596519569119L;
 	private String userName;
 	private String password;
 	private String type;
-	private boolean delFlag;
 	private Date createDatetime;
 
 	public TestEntity() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getUserName() {
@@ -61,22 +52,6 @@ public class TestEntity {
 
 	public void setCreateDatetime(Date createDatetime) {
 		this.createDatetime = createDatetime;
-	}
-
-	public boolean isDelFlag() {
-		return delFlag;
-	}
-
-	public void setDelFlag(boolean delFlag) {
-		this.delFlag = delFlag;
-	}
-
-	@Override
-	public String toString() {
-		return "TestEntity [id=" + id + ", userName=" + userName
-				+ ", password=" + password + ", type=" + type
-				+ ", createDatetime=" + createDatetime + ", delFlag=" + delFlag
-				+ "]";
 	}
 
 }

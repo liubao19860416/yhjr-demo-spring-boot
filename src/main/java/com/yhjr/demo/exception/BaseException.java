@@ -6,7 +6,7 @@ package com.yhjr.demo.exception;
  * @Author LiuBao
  * @Version 2.0 2017年3月29日
  */
-public class BaseException extends RuntimeException {
+public abstract class BaseException extends RuntimeException {
 
 	private static final long serialVersionUID = 6775179545328979398L;
 
