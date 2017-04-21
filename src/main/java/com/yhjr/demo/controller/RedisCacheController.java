@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yhjr.demo.redis.pubsub.Publisher;
+import com.yhjr.demo.redis.pubsub.Subscriber;
 import com.yhjr.demo.redis.pubsub.SubscriberThread;
 import com.yhjr.demo.utils.DateTimeUtil;
 
@@ -85,8 +86,7 @@ public class RedisCacheController {
      */
     @RequestMapping(value = "/testSubscribe/1", method = { RequestMethod.POST })
     public Object testSubscribe1(@RequestBody Map<String, Object> requestMap) {
-//        jedisCluster.subscribe(jedisPubSub, channels);
-//        getLogger().error("Subscribe端测试结果:{}",publish);
+        jedisCluster.subscribe(new Subscriber(), channel);
         return null;
     }
     
