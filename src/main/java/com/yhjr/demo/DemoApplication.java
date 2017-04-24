@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.yhjr.demo.controller.MyGlobalController;
+import com.yhjr.demo.filter.AbsoluteSendRedirectFilter;
 import com.yhjr.demo.filter.BasicAuthorizeAttributeFilter;
 
 /**
@@ -32,11 +33,13 @@ import com.yhjr.demo.filter.BasicAuthorizeAttributeFilter;
 @EnableTransactionManagement
 public class DemoApplication implements CommandLineRunner,EmbeddedServletContainerCustomizer {
 
-	private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DemoApplication.class);
 
-	// @Value("${name}")
 	@Value("${spring.profiles:Dev-}")
 	private String name;
+	
+    @Value("${https.contextPath}")
+    private String httpsContextPath ;
 	
 	@Value("${server.port}")
 	private Integer port;
@@ -47,8 +50,8 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 
 	@Override
 	public void run(String... strings) throws Exception {
-		log.info("Name is :: : {}", name);
-		log.info("DemoApplication finished start...");
+		LOGGER.info("Name is :: : {}", name);
+		LOGGER.info("DemoApplication finished start...");
 		Thread.currentThread().join();
 	}
 
@@ -60,7 +63,7 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 	@Override
 	public void customize(ConfigurableEmbeddedServletContainer configurableEmbeddedServletContainer) {
 		//configurableEmbeddedServletContainer.setPort(8088);
-		log.info("修改启动端口{}", port);
+		LOGGER.info("修改启动端口{}", port);
 	}
 	
 	/**
@@ -77,22 +80,39 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 	            ErrorPage error405Page = new ErrorPage(HttpStatus.METHOD_NOT_ALLOWED, MyGlobalController.ERROR_405);
 	            ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, MyGlobalController.ERROR_500);
 	            container.addErrorPages(error400Page,error401Page, error404Page,error405Page, error500Page);
-	            log.info("设置异常错误处理信息结束...");
+	            LOGGER.info("设置异常错误处理信息结束...");
 	        }
 	    };
 	}
-	
     
-    @Bean  
-    public FilterRegistrationBean  filterRegistrationBean() {  
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();  
-        BasicAuthorizeAttributeFilter httpBasicFilter = new BasicAuthorizeAttributeFilter();  
-        registrationBean.setFilter(httpBasicFilter);  
-        List<String> urlPatterns = new ArrayList<String>();  
-        urlPatterns.add("/user/*");  
-        urlPatterns.add("/sys/*");  
-        registrationBean.setUrlPatterns(urlPatterns);  
-        return registrationBean;  
-    } 
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+        LOGGER.info("FilterRegistrationBean-filterRegistrationBean.httpsContextPath[ {} ] ",httpsContextPath);
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        
+        registrationBean.setFilter(initAbsoluteSendRedirectFilter());
+        registrationBean.addInitParameter("https.contextPath", httpsContextPath);
+        List<String> urlPatterns = new ArrayList<String>();
+        urlPatterns.add("/*");
+        registrationBean.setUrlPatterns(urlPatterns);
+        
+        registrationBean.setFilter(initBasicAuthorizeAttributeFilter());  
+        List<String> urlPatterns2 = new ArrayList<String>();  
+        urlPatterns2.add("/sys/*");  
+        registrationBean.setUrlPatterns(urlPatterns2);
+        
+        return registrationBean;
+    }
+    
+    
+    @Bean
+    public AbsoluteSendRedirectFilter initAbsoluteSendRedirectFilter() {
+        return new AbsoluteSendRedirectFilter();
+    }
+
+    @Bean
+    public BasicAuthorizeAttributeFilter initBasicAuthorizeAttributeFilter() {
+        return new BasicAuthorizeAttributeFilter();
+    }
     
 }
