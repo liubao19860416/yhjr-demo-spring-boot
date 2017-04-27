@@ -125,6 +125,11 @@
         </dependency>
         
         <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <!-- <version>1.4.2.RELEASE</version> -->
@@ -139,10 +144,13 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
         </dependency>
         
-        
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.0</version>
+		</dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>springloaded</artifactId>
@@ -174,10 +182,12 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency> 
         -->
+        <!-- 需要大于1.2.24版本 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.1</version>
+            <version>1.2.31</version>
+           <!--  <version>1.2.1</version> -->
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -199,7 +209,20 @@
             <artifactId>httpclient</artifactId>
             <!-- <version>4.4.1</version> -->
         </dependency>
-
+		<dependency>
+   			 <groupId>commons-httpclient</groupId>
+    		 <artifactId>commons-httpclient</artifactId>
+    		 <version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
     </dependencies>
     
     <build>

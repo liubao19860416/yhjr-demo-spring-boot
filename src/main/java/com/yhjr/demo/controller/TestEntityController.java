@@ -98,6 +98,27 @@ public class TestEntityController {
 			return resultInfo;
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value ="/ajax/addTestEntity2" ,method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Object addTestEntity2(@RequestBody TestParam testParam) {
+	    LOGGER.debug("testParam:{}", testParam);
+	    TestEntity testEntity=new TestEntity();
+	    testEntity.setUserName("username"+testParam.getUserId());
+	    testEntity.setPassword(UUID.randomUUID().toString());
+	    testEntity.setType("1");
+	    testEntity.setDelFlag(Boolean.FALSE);
+	    boolean result = testEntityService.addTestEntity(testEntity);
+	    if(result){
+	        return new ResultInfo<TestEntity>().buildSuccess(testEntity);
+	    }else{
+	        ResultInfo<Boolean> resultInfo = new ResultInfo<Boolean>()
+	                .buildFailure(ErrorCodeConstant.ERROR_CODE_DEFAULT,
+	                        messageSourceUtil.getMessage(ErrorCodeConstant.ERROR_CODE_DEFAULT));
+	        resultInfo.setData(result);
+	        return resultInfo;
+	    }
+	}
 
 	/**
 	 * 数据实体查询测试

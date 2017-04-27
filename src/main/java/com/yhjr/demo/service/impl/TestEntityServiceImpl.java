@@ -21,7 +21,7 @@ import com.yhjr.demo.service.TestEntityService;
 @Component
 public class TestEntityServiceImpl implements TestEntityService {
 	
-//	@Autowired
+	@Autowired
 	private TestEntityMapper testEntityMapper;
 
 	/**

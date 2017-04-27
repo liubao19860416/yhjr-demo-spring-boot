@@ -59,6 +59,7 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
                                             .excludePathPatterns("/error/**");
         registry.addInterceptor(initLoginAuthInterceptor()).addPathPatterns("/**")
                                             .excludePathPatterns("/static/**")
+                                            .excludePathPatterns("/**/test/**")
                                             .excludePathPatterns("**.jpg")
                                             .excludePathPatterns("/error/**");
         logger.warn("MyWebAppConfigurer初始化执行了...");
