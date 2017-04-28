@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *   2017年4月6日
  */
 @Controller
+@RequestMapping("/")
 public class MyErrorController implements ErrorController {
 
-    public static final String ERROR_PATH = "/error/";
+    public static final String ERROR_PATH = "error/";
 
     @RequestMapping(ERROR_PATH)
     public String handleError() {

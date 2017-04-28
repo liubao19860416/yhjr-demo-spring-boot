@@ -21,7 +21,6 @@ import com.yhjr.demo.vo.ResultInfo;
  *   2017年3月28日
  */
 @Controller
-@RequestMapping("/")
 public class MyGlobalController /* implements ErrorController */{
 
 	public static final String INDEX = "/index";

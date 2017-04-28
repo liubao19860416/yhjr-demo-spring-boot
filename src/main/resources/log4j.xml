@@ -21,7 +21,7 @@
         <level value="info" />
     </logger>
     <logger name="org.springframework.transaction">
-        <level value="info" />
+        <level value="debug" />
     </logger>
     <logger name="org.springframework.web">
         <level value="info" />
