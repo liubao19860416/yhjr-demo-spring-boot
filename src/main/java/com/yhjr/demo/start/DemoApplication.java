@@ -35,7 +35,7 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DemoApplication.class);
 
-	@Value("${spring.profiles.active:Dev-}")
+	@Value("${spring.profiles.active:DEV}")
 	private String name;
 	
     @Value("${https.contextPath}")
