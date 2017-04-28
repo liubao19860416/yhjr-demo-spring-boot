@@ -29,4 +29,19 @@ public class DataSourceAop {
         logger.info("DataSource切换到：WRITE模式!");
     }
     
+    /*@Around("@annotation(org.springframework.transaction.annotation.Transactional)")
+    public void setWriteDataSourceType(ProceedingJoinPoint joinPoint) throws Throwable {
+        Transactional datasource = ((MethodSignature)joinPoint.getSignature()).getMethod().getAnnotation(Transactional.class);
+        if(datasource!=null){
+            if(datasource.readOnly()){
+                DataSourceContextHolder.read();
+                logger.info("dataSource切换到：read模式.");
+            }else{
+                DataSourceContextHolder.write();
+                logger.info("dataSource切换到：write模式.");
+            }
+        }
+        joinPoint.proceed();
+    }*/
+    
 }
