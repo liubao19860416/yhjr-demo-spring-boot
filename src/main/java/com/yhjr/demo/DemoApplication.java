@@ -35,7 +35,7 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DemoApplication.class);
 
-	@Value("${spring.profiles:Dev-}")
+	@Value("${spring.profiles.active:Dev-}")
 	private String name;
 	
     @Value("${https.contextPath}")
@@ -103,7 +103,6 @@ public class DemoApplication implements CommandLineRunner,EmbeddedServletContain
         
         return registrationBean;
     }
-    
     
     @Bean
     public AbsoluteSendRedirectFilter initAbsoluteSendRedirectFilter() {
