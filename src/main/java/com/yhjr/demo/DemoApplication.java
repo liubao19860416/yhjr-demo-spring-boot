@@ -14,8 +14,8 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.yhjr.demo.controller.MyGlobalController;
 import com.yhjr.demo.filter.AbsoluteSendRedirectFilter;
@@ -30,7 +30,7 @@ import com.yhjr.demo.filter.BasicAuthorizeAttributeFilter;
  *
  */
 @SpringBootApplication
-@EnableTransactionManagement
+@ComponentScan(basePackages={"com.yhjr.demo","com.yhjr.demo2"})
 public class DemoApplication implements CommandLineRunner,EmbeddedServletContainerCustomizer {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DemoApplication.class);
