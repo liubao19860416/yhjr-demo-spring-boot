@@ -31,7 +31,8 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
     
     private static final Logger logger = LoggerFactory.getLogger(WebConfiguration.class);
 
-	@Bean
+    @Bean
+    @SuppressWarnings("deprecation")
 	public FastJsonHttpMessageConverter customFastJsonHttpMessageConverter() {
 		FastJsonHttpMessageConverter jsonConverter = new FastJsonHttpMessageConverter();
 		jsonConverter.setCharset(Charset.forName("UTF-8"));

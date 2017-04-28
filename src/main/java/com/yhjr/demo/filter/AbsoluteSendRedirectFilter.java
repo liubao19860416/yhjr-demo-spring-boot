@@ -21,8 +21,9 @@ public class AbsoluteSendRedirectFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        RedirectResponseWrapper redirectResponseWrapper = new RedirectResponseWrapper(request, response);
-        filterChain.doFilter(request, redirectResponseWrapper);
+//        RedirectResponseWrapper redirectResponseWrapper = new RedirectResponseWrapper(request, response);
+//        filterChain.doFilter(request, redirectResponseWrapper);
+        filterChain.doFilter(request, response);
     }
 
 }
