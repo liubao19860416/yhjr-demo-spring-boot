@@ -8,8 +8,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.yhjr.demo.DemoApplication;
-import com.yhjr.demo.service.TestEntityService;
+import com.yhjr.demo.start.DemoApplication;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
