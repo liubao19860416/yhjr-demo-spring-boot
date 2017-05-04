@@ -52,30 +52,34 @@ public class TestEntityController {
     private JedisCluster   jedisCluster ;
 	
 	/**
-	 * 页面跳转测试
-	 */
-	@RequestMapping("/ui/listTestEntitys")
-	public String listTestEntitys(Model model) {
-		List<TestEntity> testEntitys = testEntityService.findAllTestEntitys();
-		model.addAttribute("testEntitys", testEntitys);
-		model.addAttribute("username", jedisCluster.get("username"));
-		model.addAttribute("message", messageSourceUtil.getMessage(ErrorCodeConstant.ERROR_CODE_DEFAULT));
-		return "/test/listTestEntitys";
-	}
-	
-	/**
 	 * 数据列表查询测试
+	 * 添加json/xml测试数据
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/ajax/listTestEntitys")
+//	@RequestMapping(value = "ajax/listTestEntitys", method = { RequestMethod.POST,RequestMethod.GET },consumes={MediaType.ALL_VALUE },produces={MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+//	@RequestMapping(value = "ajax/listTestEntitys", method = { RequestMethod.POST },consumes={MediaType.APPLICATION_JSON_VALUE},produces={"application/xml;charset=UTF-8"})
+	@RequestMapping(value = "ajax/listTestEntitys")
 	public Object listTestEntitys(@RequestParam("username") String username, @RequestParam("password") String password,
 			HttpServletResponse response) {
+	    response.setContentType("application/xml"); 
 		response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
 		LOGGER.debug("username:{}, password:{}", username, password);
 		List<TestEntity> testEntitys = testEntityService.findAllTestEntitys();
 		return new ResultInfo<List<TestEntity>>().buildSuccess(testEntitys);
 	}
 	
+	/**
+     * 页面跳转测试
+     */
+    @RequestMapping("/ui/listTestEntitys")
+    public String listTestEntitys(Model model) {
+        List<TestEntity> testEntitys = testEntityService.findAllTestEntitys();
+        model.addAttribute("testEntitys", testEntitys);
+        model.addAttribute("username", jedisCluster.get("username"));
+        model.addAttribute("message", messageSourceUtil.getMessage(ErrorCodeConstant.ERROR_CODE_DEFAULT));
+        return "/test/listTestEntitys";
+    }
+    
 	/**
 	 * 数据列表查询测试
 	 */

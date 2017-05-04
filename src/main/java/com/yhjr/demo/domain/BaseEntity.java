@@ -7,6 +7,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.ibatis.type.Alias;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 基础BASE实体
  * 
@@ -34,7 +37,9 @@ public abstract class BaseEntity implements Serializable {
 
     public BaseEntity() {
     }
-
+    
+    @com.fasterxml.jackson.annotation.JsonIgnore(true)
+    @JSONField(serialize=false)
     public Long getId() {
         return id;
     }
@@ -75,6 +80,7 @@ public abstract class BaseEntity implements Serializable {
         this.updateBy = updateBy == null ? null : updateBy.trim();
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Timestamp getCreateDate() {
         return createDate;
     }
@@ -83,6 +89,7 @@ public abstract class BaseEntity implements Serializable {
         this.createDate = createDate;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Timestamp getUpdateDate() {
         return updateDate;
     }
