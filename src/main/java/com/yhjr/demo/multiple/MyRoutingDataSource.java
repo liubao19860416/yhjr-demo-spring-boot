@@ -48,7 +48,7 @@ public class MyRoutingDataSource extends AbstractRoutingDataSource {
         //只对主库开启事务，如果typeKey为空表示获取主库的datasource
         if (StringUtils.isBlank(typeKey)
                 ||DataSourceType.WRITE.getType().equals(typeKey)){
-            resultObject= typeKey;
+            resultObject= DataSourceType.WRITE.getType();
         }else{
             // 读库简单负载均衡
             int number = count.getAndAdd(1);
